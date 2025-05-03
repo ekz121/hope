@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Gallery</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    body {
+      background: #1a1a2e;
+      overflow-x: hidden;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      padding: 2rem;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 255, 255, 0.3);
+    }
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+      transform: scale(0.8);
+      transition: transform 0.3s ease;
+    }
+    .lightbox.active img {
+      transform: scale(1);
+    }
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    @media (max-width: 640px) {
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+  <div class="gallery-grid">
+    <!-- Menggunakan path img/1.jpeg hingga img/30.jpeg -->
+    <div class="gallery-item"><img src="img/luqman.png" alt="Photo 1"></div>
+    <div class="gallery-item"><img src="img/nuno.png" alt="Photo 2"></div>
+    <div class="gallery-item"><img src="img/3.jpeg" alt="Photo 3"></div>
+    <div class="gallery-item"><img src="img/4.jpeg" alt="Photo 4"></div>
+    <div class="gallery-item"><img src="img/5.jpeg" alt="Photo 5"></div>
+    <div class="gallery-item"><img src="img/6.jpeg" alt="Photo 6"></div>
+    <div class="gallery-item"><img src="img/7.jpeg" alt="Photo 7"></div>
+    <div class="gallery-item"><img src="img/8.jpeg" alt="Photo 8"></div>
+    <div class="gallery-item"><img src="img/9.jpeg" alt="Photo 9"></div>
+    <div class="gallery-item"><img src="img/10.jpeg" alt="Photo 10"></div>
+    <div class="gallery-item"><img src="img/11.jpeg" alt="Photo 11"></div>
+    <div class="gallery-item"><img src="img/12.jpeg" alt="Photo 12"></div>
+    <div class="gallery-item"><img src="img/13.jpeg" alt="Photo 13"></div>
+    <div class="gallery-item"><img src="img/14.jpeg" alt="Photo 14"></div>
+    <div class="gallery-item"><img src="img/15.jpeg" alt="Photo 15"></div>
+    <div class="gallery-item"><img src="img/16.jpeg" alt="Photo 16"></div>
+    <div class="gallery-item"><img src="img/17.jpeg" alt="Photo 17"></div>
+    <div class="gallery-item"><img src="img/18.jpeg" alt="Photo 18"></div>
+    <div class="gallery-item"><img src="img/19.jpeg" alt="Photo 19"></div>
+    <div class="gallery-item"><img src="img/20.jpeg" alt="Photo 20"></div>
+    <div class="gallery-item"><img src="img/21.jpeg" alt="Photo 21"></div>
+    <div class="gallery-item"><img src="img/22.jpeg" alt="Photo 22"></div>
+    <div class="gallery-item"><img src="img/23.jpeg" alt="Photo 23"></div>
+    <div class="gallery-item"><img src="img/24.jpeg" alt="Photo 24"></div>
+    <div class="gallery-item"><img src="img/25.jpeg" alt="Photo 25"></div>
+    <div class="gallery-item"><img src="img/26.jpeg" alt="Photo 26"></div>
+    <div class="gallery-item"><img src="img/27.jpeg" alt="Photo 27"></div>
+    <div class="gallery-item"><img src="img/28.jpeg" alt="Photo 28"></div>
+    <div class="gallery-item"><img src="img/29.jpeg" alt="Photo 29"></div>
+    <div class="gallery-item"><img src="img/30.jpeg" alt="Photo 30"></div>
+  </div>
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="Lightbox Image">
+  </div>
+
+  <script>
+    // Inisialisasi Particles.js
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: ['#00f6ff', '#ff00ff', '#00ffaa'] },
+        shape: { type: 'circle' },
+        opacity: { value: 0.5, random: true },
+        size: { value: 3, random: true },
+        line_linked: { enable: false },
+        move: { enable: true, speed: 2, direction: 'none', random: true }
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } },
+        modes: { repulse: { distance: 100 }, push: { particles_nb: 4 } }
+      },
+      retina_detect: true
+    });
+
+    // Lightbox functionality
+    const galleryItems = document.querySelectorAll('.gallery-item img');
+    const lightbox = document.querySelector('#lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+
+    galleryItems.forEach(item => {
+      item.addEventListener('click', () => {
+        lightboxImg.src = item.src;
+        lightbox.classList.add('active');
+      });
+    });
+
+    lightbox.addEventListener('click', () => {
+      lightbox.classList.remove('active');
+    });
+  </script>
+</body>
+</html>
